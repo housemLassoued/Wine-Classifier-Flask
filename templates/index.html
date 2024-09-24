@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine Classification</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        // Fonction pour ajouter une nouvelle ligne au tableau
+        function addRow() {
+            // Récupère le tableau
+            var table = document.getElementById("wineTable").getElementsByTagName('tbody')[0];
+            
+            // Insère une nouvelle ligne à la fin du tableau
+            var newRow = table.insertRow();
+            
+            // Ajoute 13 cellules (12 attributs + 1 pour la classe) dans la nouvelle ligne
+            for (var i = 0; i < 12; i++) {
+                var cell = newRow.insertCell(i);
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = ["fixed_acidity", "volatile_acidity", "citric_acid", "residual_sugar", 
+                              "chlorides", "free_sulfur_dioxide", "total_sulfur_dioxide", "density", 
+                              "pH", "sulphates", "alcohol", "quality"][i];
+                cell.appendChild(input);
+            }
+
+            // Cellule pour la classe (initialement vide)
+            var cell = newRow.insertCell(12);
+            cell.innerHTML = "";  // La classe sera ajoutée ici après la classification
+        }
+    </script>
+</head>
+<body>
+    <h1>Wine Classification</h1>
+    <form method="POST" action="{{ url_for('classify') }}">
+        <table id="wineTable">
+            <thead>
+                <tr>
+                    <th>Fixed Acidity</th>
+                    <th>Volatile Acidity</th>
+                    <th>Citric Acid</th>
+                    <th>Residual Sugar</th>
+                    <th>Chlorides</th>
+                    <th>Free Sulfur Dioxide</th>
+                    <th>Total Sulfur Dioxide</th>
+                    <th>Density</th>
+                    <th>pH</th>
+                    <th>Sulphates</th>
+                    <th>Alcohol</th>
+                    <th>Quality</th>
+                    <th>Classe</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if data %}
+                {% for row in data %}
+                <tr>
+                    <td><input type="text" name="fixed_acidity" value="{{ row['fixed_acidity'] }}"></td>
+                    <td><input type="text" name="volatile_acidity" value="{{ row['volatile_acidity'] }}"></td>
+                    <td><input type="text" name="citric_acid" value="{{ row['citric_acid'] }}"></td>
+                    <td><input type="text" name="residual_sugar" value="{{ row['residual_sugar'] }}"></td>
+                    <td><input type="text" name="chlorides" value="{{ row['chlorides'] }}"></td>
+                    <td><input type="text" name="free_sulfur_dioxide" value="{{ row['free_sulfur_dioxide'] }}"></td>
+                    <td><input type="text" name="total_sulfur_dioxide" value="{{ row['total_sulfur_dioxide'] }}"></td>
+                    <td><input type="text" name="density" value="{{ row['density'] }}"></td>
+                    <td><input type="text" name="pH" value="{{ row['pH'] }}"></td>
+                    <td><input type="text" name="sulphates" value="{{ row['sulphates'] }}"></td>
+                    <td><input type="text" name="alcohol" value="{{ row['alcohol'] }}"></td>
+                    <td><input type="text" name="quality" value="{{ row['quality'] }}"></td>
+                    <td>{{ row['classe'] }}</td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+        <br>
+        <!-- Bouton pour ajouter une nouvelle ligne -->
+        <button type="button" onclick="addRow()">Add Row</button>
+        <br><br>
+        <button type="submit">Classify</button>
+    </form>
+</body>
+</html>
+
