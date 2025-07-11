@@ -136,4 +136,11 @@ The project consists of two main components:
 
 <p>
   The <strong>Wine Classifier Flask Application</strong> is a complete example of integrating machine learning into a web application. It showcases how predictive models can address real-world problems while providing a simple, intuitive interface. Whether for professionals, educators, or hobbyists, this project demonstrates the potential of modern technology to transform ideas into innovative solutions.
+
+  <hr/>
+
+<p align="center">
+  <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="300" alt="Done"/>
+</p>
+
 </p>
